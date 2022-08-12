@@ -57,7 +57,22 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+
+// https://github.com/software-mansion/react-native-screens
+  #if !TARGET_OS_TV
+      [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+  #endif // !TARGET_OS_TV
+
   return YES;
+  
+}
+
+// https://github.com/software-mansion/react-native-screens
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+#if !TARGET_OS_TV
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+#endif // !TARGET_OS_TV
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.
