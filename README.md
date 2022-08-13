@@ -39,19 +39,18 @@ yarn ios
 
 # Library
 
-    "@react-native-async-storage/async-storage": "^1.15.4",
     "@react-native-firebase/firestore": "^14.8.0",
-    "@react-navigation/core": "^6.1.0",
-    "@react-navigation/native": "^6.0.6",
-    "@react-navigation/bottom-tabs": "^6.0.9",
-    "@react-navigation/stack": "^6.0.11",
     "mobx": "^6.3.8",
     "mobx-react": "^7.2.1",
     "moment": "^2.24.0",
     "react-native-fast-image": "^8.5.11",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "^13.0.0",
-    "react-native-permissions": "^3.3.1",
-    "react-native-safe-area-context": "^4.2.2",
 
 <br/>
+
+2일차
+
+Home화면 디자인 반영
+쏘카 찾기 화면 디자인 구성
+네이버지도 API reverse geocoding

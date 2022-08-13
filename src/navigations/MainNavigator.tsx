@@ -59,7 +59,16 @@ const MainNavigator = props => {
           ),
         })}
       />
-      <MainStack.Screen name="SocarZone" component={SocarZoneScreen} />
+      <MainStack.Screen name="SocarZone" component={SocarZoneScreen} options={({route,navigation})=>({title:'쏘카',headerRight:(props)=><Feather
+                    onPress={() => {
+                      console.log(route);
+                      console.log(navigation);
+                      navigation.openDrawer();
+                    }}
+                    style={{marginRight:20}}
+                    name="menu"
+                    size={20}
+                  />})}/>
     </MainStack.Navigator>
   );
 };

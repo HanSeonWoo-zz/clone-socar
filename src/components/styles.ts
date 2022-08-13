@@ -16,7 +16,7 @@ export function normalize(size: number, based: 'width' | 'height' = 'width') {
   }
 }
 export enum Colors {
-  Main = '#00C17C',
+  Main = 'rgba(31,185,252,1)',
   Trans = '#0000',
   Green = '#00B272',
   Mint = '#00CD9B', // mint 4.0
