@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { SCREEN_WIDTH, normalize, Colors } from '../components/styles';
 import { WText } from '../components/WText';
 import MainNavigator from './MainNavigator';
+import { Img } from '../assets/images';
 
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = (props) => {
@@ -30,10 +31,11 @@ function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <View style={{ paddingHorizontal: 20, marginTop: 30 }}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row',alignItems:'center' }}>
           <WText m style={{ fontSize: 24 }}>
             한선우
           </WText>
+          <Image style={{width:normalize(20),height:normalize(20),marginLeft:8}} source={Img.pathport}/>
           <View style={{ flex: 1 }} />
           <Feather name="settings" size={20} />
           <Feather style={{ marginLeft: 20 }} name="bell" size={20} />

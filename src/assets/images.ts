@@ -7,4 +7,11 @@ export const Img = {
   socar_business: require('./socar_business.png'),
   socar_card: require('./socar_card.png'),
   socar: require('./socar.png'),
+  socar_myzone: require('./socar_myzone.png'),
+  use_guide: require('./use_guide.png'),
+  socar_sharing: require('./socar_sharing.png'),
+  story1: require('./story1.png'),
+  story2: require('./story2.png'),
+  story3: require('./story3.png'),
+  story4: require('./story4.png'),
 };
