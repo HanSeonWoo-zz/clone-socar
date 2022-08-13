@@ -1,16 +1,86 @@
 module.exports = {
+  // settings: {
+  //   react: {
+  //     version: 'detect',
+  //   },
+  // },
   root: true,
-  extends: '@react-native-community',
+  globals: {
+    fetch: false,
+    alert: false,
+  },
+  extends: ['standard', 'eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      rules: {
-        '@typescript-eslint/no-shadow': ['error'],
-        'no-shadow': 'off',
-        'no-undef': 'off',
+  parserOptions: {
+    ecmaVersion: 2020,
+  },
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  rules: {
+    '@typescript-eslint/indent': ['off', 2],
+    'no-unused-vars': 'off',
+    'jsx-quotes': ['error', 'prefer-double'],
+    // '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'no-console': 'off',
+    'react/jsx-uses-vars': [2],
+    curly: ['error', 'multi-line'],
+    'max-len': [
+      'error',
+      {
+        code: 200,
+        ignoreRegExpLiterals: true,
+        ignoreComments: true,
+        ignoreUrls: true,
       },
-    },
-  ],
+    ],
+    'comma-dangle': ['error', 'always-multiline'],
+    'arrow-parens': ['error', 'always'],
+    'no-new-object': 'error',
+    'no-array-constructor': 'error',
+    'no-trailing-spaces': 'error',
+    'sort-imports': 'off',
+    'import/order': 'off',
+    indent: 0,
+    semi: [2, 'always'],
+    // 'sort-imports': [
+    // 2,
+    //
+    // ignoreCase: false,
+    // ignoreMemberSort: false,
+    // memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+    // },
+    // ],
+    'object-curly-spacing': ['error', 'always'],
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'never',
+        named: 'never',
+        asyncArrow: 'always',
+      },
+    ],
+    'react/prop-types': 0,
+    'generator-star-spacing': [
+      'error',
+      {
+        before: false,
+        after: true,
+      },
+    ],
+    '@typescript-eslint/strict-boolean-expressions': 'off',
+    'simple-import-sort/imports': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    // '@typescript-eslint/no-unused-var': 'off',
+    'no-tabs': ['error', { allowIndentationTabs: false }],
+    'no-mixed-spaces-and-tabs': 0,
+    'react/display-name': 0,
+    '@typescript-eslint/no-empty-function': 0,
+  },
+  reportUnusedDisableDirectives: true,
+  env: {
+    jest: true,
+  },
 };

@@ -1,4 +1,4 @@
-import {Dimensions, PixelRatio, Platform} from 'react-native';
+import {Dimensions, PixelRatio, Platform, StyleSheet} from 'react-native';
 
 export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
   Dimensions.get('window');
@@ -37,3 +37,24 @@ export enum Colors {
   Dim06 = 'rgba(0,0,0,0.6)',
   Dim04 = 'rgba(0,0,0,0.4)',
 }
+
+export const globalStyles = StyleSheet.create({
+  border: {borderColor: '#fff', borderWidth: 1, borderRadius: 16},
+  shadow: {
+    backgroundColor: '#fff',
+    ...Platform.select({
+      ios: {
+        shadowColor: Colors.Dim04,
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 16,
+      },
+      android: {
+        elevation: 3,
+      },
+    }),
+  },
+});

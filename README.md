@@ -8,6 +8,11 @@ App socar clone coding project with React-Native
 
 ```
 yarn install
+sudo gem install cocoapods
+brew install git-lfs
+git-lfs install
+yarn pod
+
 cd ios
 pod install
 cd ..

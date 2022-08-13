@@ -54,6 +54,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NMFClientId</key>
+    <string>t4hxgozl1l</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
