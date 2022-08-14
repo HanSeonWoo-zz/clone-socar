@@ -1,86 +1,26 @@
 module.exports = {
-  // settings: {
-  //   react: {
-  //     version: 'detect',
-  //   },
-  // },
-  root: true,
-  globals: {
-    fetch: false,
-    alert: false,
+  settings: {
+    'import/ignore': ['react-native'],
   },
-  extends: ['standard', 'eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  extends: ['plugin:prettier/recommended', 'plugin:import/recommended', 'plugin:import/typescript', 'plugin:@typescript-eslint/recommended'],
   rules: {
-    '@typescript-eslint/indent': ['off', 2],
-    'no-unused-vars': 'off',
-    'jsx-quotes': ['error', 'prefer-double'],
-    // '@typescript-eslint/no-unused-vars': 'warn',
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'no-console': 'off',
-    'react/jsx-uses-vars': [2],
-    curly: ['error', 'multi-line'],
-    'max-len': [
+    'import/order': [
       'error',
       {
-        code: 200,
-        ignoreRegExpLiterals: true,
-        ignoreComments: true,
-        ignoreUrls: true,
+        groups: ['builtin', 'external', ['parent', 'sibling'], 'index'],
+        pathGroups: [
+          {
+            pattern: 'angular',
+            group: 'external',
+            position: 'before',
+          },
+        ],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+        'newlines-between': 'always',
       },
     ],
-    'comma-dangle': ['error', 'always-multiline'],
-    'arrow-parens': ['error', 'always'],
-    'no-new-object': 'error',
-    'no-array-constructor': 'error',
-    'no-trailing-spaces': 'error',
-    'sort-imports': 'off',
-    'import/order': 'off',
-    indent: 0,
-    semi: [2, 'always'],
-    // 'sort-imports': [
-    // 2,
-    //
-    // ignoreCase: false,
-    // ignoreMemberSort: false,
-    // memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-    // },
-    // ],
-    'object-curly-spacing': ['error', 'always'],
-    'space-before-function-paren': [
-      'error',
-      {
-        anonymous: 'never',
-        named: 'never',
-        asyncArrow: 'always',
-      },
-    ],
-    'react/prop-types': 0,
-    'generator-star-spacing': [
-      'error',
-      {
-        before: false,
-        after: true,
-      },
-    ],
-    '@typescript-eslint/strict-boolean-expressions': 'off',
-    'simple-import-sort/imports': 'error',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-empty-interface': 'off',
-    '@typescript-eslint/no-var-requires': 'off',
-    // '@typescript-eslint/no-unused-var': 'off',
-    'no-tabs': ['error', { allowIndentationTabs: false }],
-    'no-mixed-spaces-and-tabs': 0,
-    'react/display-name': 0,
-    '@typescript-eslint/no-empty-function': 0,
-  },
-  reportUnusedDisableDirectives: true,
-  env: {
-    jest: true,
   },
 };
