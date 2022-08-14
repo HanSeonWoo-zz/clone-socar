@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
  * @returns
  */
 export const wait = (timeout: number) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
+  return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
 // https://react-native-async-storage.github.io/async-storage/docs/install
@@ -63,4 +63,18 @@ export const removeItemInStorage = async (key: string) => {
   } catch (error) {
     console.log('remove Item Error');
   }
+};
+
+export const SOCAR_DATE_FORMAT = 'M/D (dd) HH:mm';
+export const getDefaultStart = () => {
+  const temp = new Date();
+  const res = (Math.ceil(temp.getMinutes() / 10) + 1) * 10;
+  temp.setMinutes(res);
+  return temp;
+};
+export const getDefaultEnd = () => {
+  const temp = getDefaultStart();
+  const res = temp.getHours();
+  temp.setHours(res + 4);
+  return temp;
 };
