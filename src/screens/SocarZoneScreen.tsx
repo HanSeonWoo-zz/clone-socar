@@ -18,8 +18,17 @@ const SocarZoneScree = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
   const [dateStart, setDateStart] = useState(getDefaultStart());
   const [dateEnd, setDateEnd] = useState(getDefaultEnd());
+  const [center, setCenter] = useState(P0);
   const [mark, setMark] = useState(P0);
   const [addKor, setAddKor] = useState('');
+
+  useEffect(() => {
+    if (route.params?.center) {
+      setCenter(route.params?.center);
+    } else {
+      setCenter(P0);
+    }
+  }, [route.params?.center]);
 
   useEffect(() => {
     if (route.params?.dateStart) {
@@ -38,6 +47,9 @@ const SocarZoneScree = ({ route, navigation }) => {
 
   const onTimeSet = () => {
     navigation.navigate('TimeSetModal', { dateStart: dateStart.toString(), dateEnd: dateEnd.toString() });
+  };
+  const onSearch = () => {
+    navigation.navigate('Search');
   };
 
   const getPermission = async () => {
@@ -75,7 +87,7 @@ const SocarZoneScree = ({ route, navigation }) => {
     Geolocation.getCurrentPosition(
       (position) => {
         if ((position.coords.latitude > 0, position.coords.longitude > 0)) {
-          setMark({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+          setCenter({ latitude: position.coords.latitude, longitude: position.coords.longitude });
         } else {
           console.log('getCurrentPosition > Simulator에서는 위치 정보가 명확하지 않다.');
         }
@@ -91,10 +103,6 @@ const SocarZoneScree = ({ route, navigation }) => {
   };
   useEffect(() => {
     getPermission();
-    // checkLocation();
-    // reverseGeo_().then((res) => {
-    //   console.log('🚀 ~ file: SocarZoneScreen.tsx ~ line 72 ~ useEffect ~ res', res);
-    // });
   }, []);
 
   return (
@@ -112,7 +120,7 @@ const SocarZoneScree = ({ route, navigation }) => {
         }}
         onCameraChange={(e) => {
           console.log('onCameraChange', e);
-          setMark({ latitude: e.latitude, longitude: e.longitude });
+          setCenter({ latitude: e.latitude, longitude: e.longitude });
           try {
             reverseGeo_({ coords: e.longitude + ',' + e.latitude }).then((res) => {
               console.log('🚀 ~ file: SocarZoneScreen.tsx ~ line 93 ~ SocarZoneScree ~ res', res);
@@ -128,10 +136,11 @@ const SocarZoneScree = ({ route, navigation }) => {
         }}
         rotateGesturesEnabled={false}
         style={{ width: SCREEN_WIDTH, flex: 1 }}
-        center={{ ...P0, zoom: 16 }}>
-        <Marker caption={{ text: '', color: '#fff', offset: -70, haloColor: Colors.Dim06 }} coordinate={mark} />
+        center={{ ...center, zoom: 16 }}>
+        <Marker caption={{ text: '', color: '#fff', offset: -70, haloColor: Colors.Dim06 }} coordinate={center} />
       </NaverMapView>
       <TouchableOpacity
+        onPress={onSearch}
         style={[
           styles.shadow,
           {

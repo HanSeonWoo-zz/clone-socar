@@ -9,6 +9,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { Img } from '../assets/images';
 import { Colors, normalize } from '../components/styles';
 import HomeScreen from '../screens/HomeScreen';
+import SearchScreen from '../screens/SearchScreen';
 import SocarZoneScreen from '../screens/SocarZoneScreen';
 import TimeSetModalScreen from '../screens/TimeSetModalScreen';
 const MainStack = createStackNavigator();
@@ -74,14 +75,8 @@ const MainNavigator = (props) => {
           ),
         })}
       />
-      <MainStack.Screen
-        name="TimeSetModal"
-        component={TimeSetModalScreen}
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-        }}
-      />
+      <MainStack.Screen name="TimeSetModal" component={TimeSetModalScreen} options={{ presentation: 'modal', headerShown: false }} />
+      <MainStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
     </MainStack.Navigator>
   );
 };
