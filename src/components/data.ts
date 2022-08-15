@@ -90,4 +90,6 @@ export const RESERVATION_DATA = [{ id: 1, socarId: 1, time: '' }];
 
 export const DEFAULT_PLACE = { latitude: 37.54585579999996, longitude: 126.92158830000007 };
 
-export const DEFAULT_HISTORY_DATA = [{ id: 1, dateStart: '', dateEnd: '', zoneId: 1, socarId: 1, state: '예약완료' }];
+export const DEFAULT_HISTORY_DATA = [
+  { id: 1, dateStart: 'Mon Aug 15 2022 17:50:17 GMT+0900 (한국 표준시)', dateEnd: 'Mon Aug 15 2022 21:50:17 GMT+0900 (한국 표준시)', zoneId: 1, socarId: 1, state: '예약완료' },
+];

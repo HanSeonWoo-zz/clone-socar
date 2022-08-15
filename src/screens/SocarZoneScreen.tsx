@@ -16,6 +16,7 @@ import { formatNumber, getDefaultEnd, getDefaultStart, SOCAR_DATE_FORMAT } from 
 import { WText } from '../components/WText';
 
 const SocarZoneScree = ({ route, navigation }) => {
+  console.log('🚀 ~ file: SocarZoneScreen.tsx ~ line 19 ~ SocarZoneScree ~ route', route.params);
   const insets = useSafeAreaInsets();
   const [dateStart, setDateStart] = useState(getDefaultStart());
   const [dateEnd, setDateEnd] = useState(getDefaultEnd());

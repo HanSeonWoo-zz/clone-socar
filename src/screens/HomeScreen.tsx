@@ -1,3 +1,4 @@
+import { inject, observer } from 'mobx-react';
 import React, { useCallback, useState } from 'react';
 import { ScrollView, Image, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -9,8 +10,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { Img } from '../assets/images';
 import { normalize, globalStyles, SCREEN_WIDTH, Colors } from '../components/styles';
 import { WText } from '../components/WText';
+import { MainStore } from '../store/mainStore';
 
-function HomeScreen({ route, navigation }) {
+function HomeScreen(props) {
+  const { st }: { st: MainStore } = props;
+  const { route, navigation } = props;
   const insets = useSafeAreaInsets();
   return (
     <>
@@ -256,7 +260,7 @@ function HomeScreen({ route, navigation }) {
   );
 }
 
-export default HomeScreen;
+export default inject('st')(observer(HomeScreen));
 
 const styles = StyleSheet.create({
   container: {
