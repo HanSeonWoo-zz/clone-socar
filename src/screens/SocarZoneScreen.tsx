@@ -9,7 +9,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { reverseGeo_ } from '../api/naverApi';
-import { Img } from '../assets/images';
 import { DEFAULT_PLACE, CAR_DATA, SOCARZONE_DATA, SOCAR_DATA } from '../components/data';
 import { Colors, normalize, SCREEN_HEIGHT, SCREEN_WIDTH } from '../components/styles';
 import { formatNumber, getDefaultEnd, getDefaultStart, SOCAR_DATE_FORMAT } from '../components/util';
@@ -108,6 +107,7 @@ const SocarZoneScree = ({ route, navigation }) => {
   }, []);
 
   const renderZone = (item, index) => {
+    console.log('🚀 ~ file: SocarZoneScreen.tsx ~ line 110 ~ renderZone ~ item', item);
     return (
       <Marker
         key={String(item.id)}

@@ -1,4 +1,6 @@
-import { configure, makeObservable } from 'mobx';
+import { action, computed, configure, makeObservable, observable, toJS } from 'mobx';
+
+import { DEFAULT_HISTORY_DATA } from './../components/data';
 
 configure({
   enforceActions: 'never',
@@ -9,11 +11,44 @@ configure({
 });
 
 export class MainStore {
+  histories = [];
   constructor() {
-    makeObservable(this, {});
+    makeObservable(this, {
+      histories: observable,
+      initializeHistory: action,
+      addHistory: action,
+      getRecentReservation: computed,
+    });
     this.initializeApp();
   }
-  initializeApp = async () => {};
-}
+  initializeApp = async () => {
+    this.initializeHistory();
+  };
+  initializeHistory = async () => {
+    this.histories = DEFAULT_HISTORY_DATA;
+    console.log('🚀 ~ file: mainStore.ts ~ line 27 ~ MainStore ~ initializeHistory= ~ DEFAULT_HISTORY_DATA', DEFAULT_HISTORY_DATA);
+  };
+  // TODO: TYPE
+  addHistory = async (newHistory) => {
+    if (newHistory) {
+      const newId = this.histories?.length + 1;
+      this.histories = [...this.histories, { id: newId, ...newHistory }];
+      return newId;
+    }
+  };
+  cancelReservation = async (id) => {
+    const index = this.histories.findIndex((i) => i.id === id);
+    if (index === -1) return;
+    this.histories[index].state = '예약취소';
+  };
 
-export const store = new MainStore();
+  get getRecentReservation() {
+    const reserved = [...this.histories?.filter((i) => i.state === '예약완료')];
+    const res = reserved.sort((a, b) => {
+      const aDate = new Date(a.dateStart);
+      const bDate = new Date(b.dateStart);
+      return aDate > bDate ? 1 : -1;
+    });
+    return res[0];
+  }
+}

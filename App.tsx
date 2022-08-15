@@ -4,13 +4,14 @@ import * as React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import MainNavigator from './src/navigations/MainNavigator';
-import { store } from './src/store/mainStore';
+import { MainStore } from './src/store/mainStore';
+const st = new MainStore();
 
 const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <MobxProvider st={store}>
+        <MobxProvider st={st}>
           <MainNavigator />
         </MobxProvider>
       </NavigationContainer>

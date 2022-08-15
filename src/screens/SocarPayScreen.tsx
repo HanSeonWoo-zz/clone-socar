@@ -1,6 +1,7 @@
+import { inject, observer } from 'mobx-react';
 import moment from 'moment';
 import React, { useState } from 'react';
-import { Alert, Image, Platform, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -9,19 +10,19 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import { Img } from '../assets/images';
 import { FixedButton } from '../components/buttons';
 import { CAR_DATA, SOCARZONE_DATA, SOCAR_DATA } from '../components/data';
-import { Colors, globalStyles, normalize, SCREEN_WIDTH } from '../components/styles';
+import { Colors } from '../components/styles';
 import { formatNumber } from '../components/util';
 import { WText } from '../components/WText';
+import { MainStore } from '../store/mainStore';
 
-const SocarPayScreen = ({ route, navigation }) => {
+const SocarPayScreen = (props) => {
+  const { st }: { st: MainStore } = props;
+  const { route, navigation } = props;
   const insets = useSafeAreaInsets();
   const { id } = route.params;
-  console.log('🚀 ~ file: SocarDetailScreen.tsx ~ line 9 ~ SocarDetailScreen ~ id', id);
-  console.log('🚀 ~ file: SocarDetailScreen.tsx ~ line 109 ~ SocarDetailScreen ~ route', route);
   const socarInfo = SOCAR_DATA.find((socar) => socar.id === id);
   const carInfo = CAR_DATA.find((car) => car.id === socarInfo?.carId);
   const zoneInfo = SOCARZONE_DATA.find((zone) => zone.id === socarInfo?.zoneId);
-  console.log('🚀 ~ file: SocarDetailScreen.tsx ~ line 14 ~ SocarDetailScreen ~ carInfo', carInfo);
   const [selectedPayMethod, setSelectedPayMethod] = useState<'naverPay' | 'socarCard'>('socarCard');
   const [isAgree0, setIsAgree0] = useState(false);
   const [isAgree1, setIsAgree1] = useState(false);
@@ -52,9 +53,10 @@ const SocarPayScreen = ({ route, navigation }) => {
       { text: '취소' },
       {
         text: '확인',
-        onPress: () => {
+        onPress: async () => {
+          const newId = await st.addHistory({ dateStart: route.params.dateStart, dateEnd: route.params.dateEnd, zoneId: zoneInfo?.id, socarId: socarInfo?.id, state: '예약완료' });
           navigation.popToTop();
-          navigation.navigate('Reservation');
+          navigation.navigate('Reservation', { id: newId });
         },
       },
     ]);
@@ -263,4 +265,4 @@ const SocarPayScreen = ({ route, navigation }) => {
     </>
   );
 };
-export default SocarPayScreen;
+export default inject('st')(observer(SocarPayScreen));
