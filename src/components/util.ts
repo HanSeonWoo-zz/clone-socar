@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import numeral from 'numeral';
 
 /**
  *
@@ -78,3 +79,5 @@ export const getDefaultEnd = () => {
   temp.setHours(res + 4);
   return temp;
 };
+
+export const formatNumber = (num: number) => numeral(num).format('0,0');
