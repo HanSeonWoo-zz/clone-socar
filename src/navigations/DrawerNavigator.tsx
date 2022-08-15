@@ -11,6 +11,8 @@ import { Img } from '../assets/images';
 import { SCREEN_WIDTH, normalize, Colors } from '../components/styles';
 import { WText } from '../components/WText';
 import HomeScreen from '../screens/HomeScreen';
+import SocarDetailScreen from '../screens/SocarDetailScreen';
+import SocarPayScreen from '../screens/SocarPayScreen';
 import SocarZoneScreen from '../screens/SocarZoneScreen';
 
 const Drawer = createDrawerNavigator();
@@ -85,8 +87,6 @@ const DrawerStackNavigator = () => {
           headerRight: (props) => (
             <Feather
               onPress={() => {
-                console.log(route);
-                console.log(navigation);
                 navigation.openDrawer();
               }}
               style={{ marginRight: 20 }}
@@ -96,6 +96,8 @@ const DrawerStackNavigator = () => {
           ),
         })}
       />
+      <DrawerStack.Screen name="SocarDetail" component={SocarDetailScreen} options={{ title: '대여 정보 확인' }} />
+      <DrawerStack.Screen name="SocarPay" component={SocarPayScreen} options={{ title: '결제 정보 확인' }} />
     </DrawerStack.Navigator>
   );
 };

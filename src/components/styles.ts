@@ -1,7 +1,6 @@
-import {Dimensions, PixelRatio, Platform, StyleSheet} from 'react-native';
+import { Dimensions, PixelRatio, Platform, StyleSheet } from 'react-native';
 
-export const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} =
-  Dimensions.get('window');
+export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 // based on iPhone 11 Pro, X
 const wscale: number = SCREEN_WIDTH / 375;
@@ -17,6 +16,7 @@ export function normalize(size: number, based: 'width' | 'height' = 'width') {
 }
 export enum Colors {
   Main = 'rgba(31,185,252,1)',
+  MainDark = 'rgba(3,35,127,1)',
   Trans = '#0000',
   Green = '#00B272',
   Mint = '#00CD9B', // mint 4.0
@@ -39,7 +39,7 @@ export enum Colors {
 }
 
 export const globalStyles = StyleSheet.create({
-  border: {borderColor: '#fff', borderWidth: 1, borderRadius: 16},
+  border: { borderColor: '#fff', borderWidth: 1, borderRadius: 16 },
   shadow: {
     backgroundColor: '#fff',
     ...Platform.select({
