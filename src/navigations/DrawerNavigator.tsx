@@ -1,13 +1,20 @@
-import * as React from 'react';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
 import { View, Image, TouchableOpacity, Linking } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import { Img } from '../assets/images';
 import { SCREEN_WIDTH, normalize, Colors } from '../components/styles';
 import { WText } from '../components/WText';
-import MainNavigator from './MainNavigator';
-import { Img } from '../assets/images';
+import HomeScreen from '../screens/HomeScreen';
+import SocarZoneScreen from '../screens/SocarZoneScreen';
 
 const Drawer = createDrawerNavigator();
+const DrawerStack = createStackNavigator();
 const DrawerNavigator = (props) => {
   return (
     <Drawer.Navigator
@@ -20,22 +27,88 @@ const DrawerNavigator = (props) => {
       }}
       drawerContent={CustomDrawerContent}
       initialRouteName="Home">
-      <Drawer.Screen name="Main" component={MainNavigator} />
+      <Drawer.Screen name="DrawerStack" component={DrawerStackNavigator} />
     </Drawer.Navigator>
   );
 };
 
-export default DrawerNavigator
+export default DrawerNavigator;
+
+const DrawerStackNavigator = () => {
+  return (
+    <DrawerStack.Navigator
+      screenOptions={{
+        headerLeftLabelVisible: false,
+        headerBackImage: () => <MaterialIcons name="arrow-back" size={normalize(24)} style={{ marginLeft: 20 }} />,
+        cardStyle: { backgroundColor: Colors.White },
+        headerStyle: { shadowColor: 'transparent' },
+        headerTitleAlign: 'center',
+      }}>
+      <DrawerStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={({ route, navigation }) => ({
+          header: (props) => (
+            <SafeAreaView edges={['top']}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingHorizontal: 20,
+                  height: normalize(45),
+                }}>
+                <Image resizeMode="contain" style={{ width: 70, height: 18 }} source={Img.socar} />
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Image resizeMode="contain" style={{ width: 70, height: 18 }} source={Img.coupon} />
+                  <AntDesign style={{ marginRight: 20 }} name="bells" size={20} />
+                  <Feather
+                    onPress={() => {
+                      console.log(route);
+                      console.log(navigation);
+                      navigation.openDrawer();
+                    }}
+                    name="menu"
+                    size={20}
+                  />
+                </View>
+              </View>
+            </SafeAreaView>
+          ),
+        })}
+      />
+      <DrawerStack.Screen
+        name="SocarZone"
+        component={SocarZoneScreen}
+        options={({ route, navigation }) => ({
+          title: '쏘카',
+          headerRight: (props) => (
+            <Feather
+              onPress={() => {
+                console.log(route);
+                console.log(navigation);
+                navigation.openDrawer();
+              }}
+              style={{ marginRight: 20 }}
+              name="menu"
+              size={20}
+            />
+          ),
+        })}
+      />
+    </DrawerStack.Navigator>
+  );
+};
 
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
       <View style={{ paddingHorizontal: 20, marginTop: 30 }}>
-        <View style={{ flexDirection: 'row',alignItems:'center' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <WText m style={{ fontSize: 24 }}>
             한선우
           </WText>
-          <Image style={{width:normalize(20),height:normalize(20),marginLeft:8}} source={Img.pathport}/>
+          <Image style={{ width: normalize(20), height: normalize(20), marginLeft: 8 }} source={Img.pathport} />
           <View style={{ flex: 1 }} />
           <Feather name="settings" size={20} />
           <Feather style={{ marginLeft: 20 }} name="bell" size={20} />
