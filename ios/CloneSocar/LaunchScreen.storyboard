@@ -17,25 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="MN2-I3-ftu">
-                                <rect key="frame" x="0.0" y="647" width="375" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="NTh-Ov-vch">
-                                <rect key="frame" x="79" y="144" width="195" height="153"/>
+                                <rect key="frame" x="85" y="122" width="195" height="176"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="NTh-Ov-vch" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5LI-xW-RAL"/>
-                            <constraint firstItem="NTh-Ov-vch" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5oY-Wz-qPQ"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="MN2-I3-ftu" secondAttribute="bottom" constant="20" id="OZV-Vh-mqD"/>
-                            <constraint firstItem="NTh-Ov-vch" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Ve1-Uj-LBU"/>
-                            <constraint firstItem="MN2-I3-ftu" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="akx-eg-2ui"/>
-                            <constraint firstItem="MN2-I3-ftu" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="i1E-0Y-4RG"/>
-                            <constraint firstItem="NTh-Ov-vch" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="yDp-EX-4FF"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="NTh-Ov-vch" secondAttribute="bottom" constant="369" id="0dX-2l-YWB"/>
+                            <constraint firstItem="NTh-Ov-vch" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="122" id="WZK-Us-rlF"/>
+                            <constraint firstItem="NTh-Ov-vch" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="77" id="e1q-pc-Nii"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="NTh-Ov-vch" secondAttribute="trailing" constant="103" id="gzD-k8-2X3"/>
                         </constraints>
                     </view>
                 </viewController>

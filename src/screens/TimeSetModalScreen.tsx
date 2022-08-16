@@ -1,6 +1,6 @@
 import 'moment/locale/ko';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LayoutAnimation, ScrollView, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -21,6 +21,12 @@ const TimeSetModalScreen = ({ route, navigation }) => {
   const onClose = () => {
     navigation.goBack();
   };
+
+  useEffect(() => {
+    if (dateStart > dateEnd) {
+      setDateEnd(dateStart);
+    }
+  }, [dateStart]);
 
   const onToggleStart = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -50,7 +56,9 @@ const TimeSetModalScreen = ({ route, navigation }) => {
                 </WText>
                 <SimpleLineIcons name={isOpenStart ? 'arrow-up' : 'arrow-down'} color={'#666'} style={{ marginLeft: 24 }} size={16} />
               </TouchableOpacity>
-              {isOpenStart && <DatePicker date={dateStart} onDateChange={setDateStart} minimumDate={new Date()} androidVariant={'iosClone'} minuteInterval={10} mode="datetime" />}
+              {isOpenStart && (
+                <DatePicker locale="ko" date={dateStart} onDateChange={setDateStart} minimumDate={new Date()} androidVariant={'iosClone'} minuteInterval={10} mode="datetime" />
+              )}
             </View>
             <View style={{ borderTopWidth: 1, borderColor: '#eee', paddingVertical: 20 }}>
               <TouchableOpacity onPress={onToggleEnd} style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -60,7 +68,9 @@ const TimeSetModalScreen = ({ route, navigation }) => {
                 </WText>
                 <SimpleLineIcons name={isOpenEnd ? 'arrow-up' : 'arrow-down'} color={'#666'} style={{ marginLeft: 24 }} size={16} />
               </TouchableOpacity>
-              {isOpenEnd && <DatePicker date={dateEnd} onDateChange={setDateEnd} minimumDate={dateStart} androidVariant={'iosClone'} minuteInterval={10} mode="datetime" />}
+              {isOpenEnd && (
+                <DatePicker locale="ko" date={dateEnd} onDateChange={setDateEnd} minimumDate={dateStart} androidVariant={'iosClone'} minuteInterval={10} mode="datetime" />
+              )}
             </View>
           </ScrollView>
         </View>

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Alert, FlatList, Image, LayoutAnimation, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, LayoutAnimation, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import NaverMapView, { Marker } from 'react-native-nmap';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
@@ -60,6 +60,7 @@ const SocarZoneScree = ({ route, navigation }) => {
   }, [route.params?.dateEnd]);
 
   const getPermission = async () => {
+    // TODO : Android Permission
     check(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
       .then((result) => {
         console.log('🚀 ~ file: SocarZoneScreen.tsx ~ line 15 ~ .then ~ result', result);
