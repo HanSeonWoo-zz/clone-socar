@@ -1,5 +1,6 @@
 import { action, computed, configure, makeObservable, observable, toJS } from 'mobx';
 
+import { History } from '../components/types';
 import { DEFAULT_HISTORY_DATA } from './../components/data';
 
 configure({
@@ -11,7 +12,7 @@ configure({
 });
 
 export class MainStore {
-  histories = [];
+  histories: History[] = [];
   constructor() {
     makeObservable(this, {
       histories: observable,
@@ -28,15 +29,14 @@ export class MainStore {
     this.histories = DEFAULT_HISTORY_DATA;
     console.log('🚀 ~ file: mainStore.ts ~ line 27 ~ MainStore ~ initializeHistory= ~ DEFAULT_HISTORY_DATA', DEFAULT_HISTORY_DATA);
   };
-  // TODO: TYPE
-  addHistory = async (newHistory) => {
+  addHistory = async (newHistory: History) => {
     if (newHistory) {
       const newId = this.histories?.length + 1;
       this.histories = [...this.histories, { id: newId, ...newHistory }];
       return newId;
     }
   };
-  cancelReservation = async (id) => {
+  cancelReservation = async (id: number) => {
     const index = this.histories.findIndex((i) => i.id === id);
     if (index === -1) return;
     this.histories[index].state = '예약취소';

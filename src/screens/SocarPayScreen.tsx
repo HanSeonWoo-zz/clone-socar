@@ -16,9 +16,9 @@ import { WText } from '../components/WText';
 import { MainStore } from '../store/mainStore';
 
 const SocarPayScreen = (props) => {
+  const insets = useSafeAreaInsets();
   const { st }: { st: MainStore } = props;
   const { route, navigation } = props;
-  const insets = useSafeAreaInsets();
   const { id } = route.params;
   const socarInfo = SOCAR_DATA.find((socar) => socar.id === id);
   const carInfo = CAR_DATA.find((car) => car.id === socarInfo?.carId);

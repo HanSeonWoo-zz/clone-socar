@@ -1,4 +1,5 @@
-export const SOCARZONE_DATA = [
+import { Car, History, Socar, SocarZone } from './types';
+export const SOCARZONE_DATA: SocarZone[] = [
   {
     id: 1,
     title: '홍익대학교 예문관 주차장',
@@ -32,7 +33,7 @@ export const SOCARZONE_DATA = [
     coordinate: { latitude: 37.545397499999986, longitude: 126.92533750000003 },
   },
 ];
-export const CAR_DATA = [
+export const CAR_DATA: Car[] = [
   {
     id: 1,
     name: '쏘나타DN8 센슈어스',
@@ -75,8 +76,22 @@ export const CAR_DATA = [
     insureancePrice2: 3000,
     insureancePrice3: 3450,
   },
+  {
+    id: 4,
+    name: '베리 뉴 티볼리',
+    oil: '휘발유',
+    imageUri:
+      'https://w.namu.la/s/cc41f4155b0381527c4be670ea514d3af51477e62218c6d557b0f144f9d3cf6f1adc6be5e98012c98c36977e66a0d0b0cd5c1531cf13c9bb1250b1ab6dec466648fecfba66591c94c762592f001df4011457ceaf01aa78d8e6c9967c8f16efb8a2e29f7029c98fce98cbb0782e156022',
+    minPrice: 333,
+    oilPrice1: 190,
+    oilPrice2: 200,
+    oilPrice3: 230,
+    insureancePrice1: 2340,
+    insureancePrice2: 3455,
+    insureancePrice3: 4555,
+  },
 ];
-export const SOCAR_DATA = [
+export const SOCAR_DATA: Socar[] = [
   { id: 1, carId: 1, zoneId: 1 },
   { id: 2, carId: 2, zoneId: 1 },
   { id: 3, carId: 3, zoneId: 1 },
@@ -85,12 +100,14 @@ export const SOCAR_DATA = [
   { id: 6, carId: 1, zoneId: 3 },
   { id: 7, carId: 2, zoneId: 3 },
   { id: 8, carId: 3, zoneId: 3 },
+  { id: 9, carId: 4, zoneId: 1 },
+  { id: 10, carId: 4, zoneId: 2 },
+  { id: 11, carId: 4, zoneId: 3 },
+  { id: 12, carId: 4, zoneId: 4 },
 ];
-export const RESERVATION_DATA = [{ id: 1, socarId: 1, time: '' }];
-
 export const DEFAULT_PLACE = { latitude: 37.54585579999996, longitude: 126.92158830000007 };
 
-export const DEFAULT_HISTORY_DATA = [
+export const DEFAULT_HISTORY_DATA: History[] = [
   { id: 1, dateStart: 'Mon Aug 15 2022 17:50:17 GMT+0900 (한국 표준시)', dateEnd: 'Mon Aug 15 2022 21:50:17 GMT+0900 (한국 표준시)', zoneId: 2, socarId: 1, state: '예약취소' },
   { id: 2, dateStart: 'Mon Aug 14 2022 17:50:17 GMT+0900 (한국 표준시)', dateEnd: 'Mon Aug 15 2022 21:50:17 GMT+0900 (한국 표준시)', zoneId: 1, socarId: 2, state: '반납완료' },
   { id: 3, dateStart: 'Mon Aug 12 2022 17:50:17 GMT+0900 (한국 표준시)', dateEnd: 'Mon Aug 15 2022 21:50:17 GMT+0900 (한국 표준시)', zoneId: 3, socarId: 3, state: '반납완료' },

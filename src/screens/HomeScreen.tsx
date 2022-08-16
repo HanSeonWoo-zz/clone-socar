@@ -1,6 +1,7 @@
 import { inject, observer } from 'mobx-react';
 import React from 'react';
 import { ScrollView, Image, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -12,11 +13,12 @@ import { MainStore } from '../store/mainStore';
 import { MainMiddleBanner, MainTopBanner, MyReservation } from './homeComponents';
 
 function HomeScreen(props) {
+  const insets = useSafeAreaInsets();
   const { st }: { st: MainStore } = props;
   const { route, navigation } = props;
   return (
     <>
-      <ScrollView style={{ backgroundColor: '#F1F1F1' }}>
+      <ScrollView style={{ backgroundColor: '#F1F1F1' }} contentContainerStyle={{ paddingBottom: insets.bottom }}>
         <MainTopBanner />
         <View style={{ paddingHorizontal: 15, paddingVertical: 20 }}>
           <View style={{ flexDirection: 'row' }}>

@@ -1,27 +1,28 @@
 import moment from 'moment';
-import React, { useEffect, useState } from 'react';
-import { FlatList, Image, LayoutAnimation, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Alert, FlatList, Image, LayoutAnimation, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import NaverMapView, { Marker } from 'react-native-nmap';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { reverseGeo_ } from '../api/naverApi';
 import { DEFAULT_PLACE, CAR_DATA, SOCARZONE_DATA, SOCAR_DATA } from '../components/data';
-import { Colors, normalize, SCREEN_HEIGHT, SCREEN_WIDTH } from '../components/styles';
+import { Colors, globalStyles, normalize, SCREEN_HEIGHT, SCREEN_WIDTH } from '../components/styles';
+import { Socar } from '../components/types';
 import { formatNumber, getDefaultEnd, getDefaultStart, SOCAR_DATE_FORMAT } from '../components/util';
 import { WText } from '../components/WText';
 
 const SocarZoneScree = ({ route, navigation }) => {
-  console.log('🚀 ~ file: SocarZoneScreen.tsx ~ line 19 ~ SocarZoneScree ~ route', route.params);
   const insets = useSafeAreaInsets();
   const [dateStart, setDateStart] = useState(getDefaultStart());
   const [dateEnd, setDateEnd] = useState(getDefaultEnd());
   const [center, setCenter] = useState(DEFAULT_PLACE);
   const [addKor, setAddKor] = useState('');
-  const [currentZone, setCurrentZone] = useState(null);
+  const [currentZone, setCurrentZone] = useState<Socar | null>(null);
 
   const onTimeSet = () => {
     navigation.navigate('TimeSetModal', { dateStart: dateStart.toString(), dateEnd: dateEnd.toString() });
@@ -29,6 +30,10 @@ const SocarZoneScree = ({ route, navigation }) => {
   const onSearch = () => {
     navigation.navigate('Search');
   };
+
+  useEffect(() => {
+    getPermission();
+  }, []);
 
   useEffect(() => {
     if (route.params?.center) {
@@ -45,6 +50,7 @@ const SocarZoneScree = ({ route, navigation }) => {
       getDefaultStart();
     }
   }, [route.params?.dateStart]);
+
   useEffect(() => {
     if (route.params?.dateEnd) {
       setDateEnd(new Date(route.params?.dateEnd));
@@ -90,10 +96,8 @@ const SocarZoneScree = ({ route, navigation }) => {
         if ((position.coords.latitude > 0, position.coords.longitude > 0)) {
           setCenter({ latitude: position.coords.latitude, longitude: position.coords.longitude });
         } else {
-          console.log('getCurrentPosition > Simulator에서는 위치 정보가 명확하지 않다.');
+          console.log('getCurrentPosition > Simulator에서는 위치 정보가 명확하지 않습니다.', { latitude: position.coords.latitude, longitude: position.coords.longitude });
         }
-
-        console.log(position);
       },
       (error) => {
         // See error code charts below.
@@ -102,12 +106,8 @@ const SocarZoneScree = ({ route, navigation }) => {
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
     );
   };
-  useEffect(() => {
-    getPermission();
-  }, []);
 
-  const renderZone = (item, index) => {
-    console.log('🚀 ~ file: SocarZoneScreen.tsx ~ line 110 ~ renderZone ~ item', item);
+  const renderZone = useCallback((item, index) => {
     return (
       <Marker
         key={String(item.id)}
@@ -119,12 +119,12 @@ const SocarZoneScree = ({ route, navigation }) => {
         coordinate={item.coordinate}
       />
     );
-  };
+  }, []);
 
   const renderSocar = ({ item, index }) => {
     const carInfo = CAR_DATA.find((i) => i.id === item.carId);
     const useTime = moment(dateEnd).diff(dateStart, 'minutes');
-    const wholeLength = moment(moment(dateEnd).add(1, 'day')).diff(moment(dateStart).subtract(1, 'day'), 'minutes');
+    const DAY_IN_MINUTES = 1440;
     const reservationLength = moment(dateEnd).diff(dateStart, 'minutes');
     const middleTime = moment(dateStart)
       .add(reservationLength / 2, 'minutes')
@@ -150,9 +150,9 @@ const SocarZoneScree = ({ route, navigation }) => {
           </View>
         </View>
         <View style={{ borderWidth: 0.5, borderColor: '#eee', marginTop: 12, flexDirection: 'row' }}>
-          <View style={{ flex: 1440 }} />
+          <View style={{ flex: DAY_IN_MINUTES }} />
           <View style={{ flex: reservationLength, backgroundColor: Colors.Main, height: 6 }}></View>
-          <View style={{ flex: 1440 }} />
+          <View style={{ flex: DAY_IN_MINUTES }} />
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 }}>
           <WText style={{ fontSize: 12, color: '#666' }}>{moment(dateStart).subtract(1, 'day').format('M/D')}</WText>
@@ -198,11 +198,30 @@ const SocarZoneScree = ({ route, navigation }) => {
         <Marker pinColor={Colors.Main} height={25} width={20} caption={{ text: '', color: '#fff', offset: -70, haloColor: Colors.Dim06 }} coordinate={center} />
         {SOCARZONE_DATA.map(renderZone)}
       </NaverMapView>
-      <TouchableOpacity onPress={onSearch} style={[styles.container, { padding: 16, top: normalize(15), alignItems: 'center' }]}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <MaterialCommunityIcons size={16} name={'record-circle'} color={Colors.Main} />
-          <WText style={{ fontSize: 16, marginLeft: 8 }}>{addKor}</WText>
-        </View>
+      {!currentZone ? (
+        <TouchableOpacity onPress={onSearch} style={[styles.container, { padding: 16, top: normalize(15), alignItems: 'center' }]}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <MaterialCommunityIcons size={16} name={'record-circle'} color={Colors.Main} />
+            <WText style={{ fontSize: 16, marginLeft: 8 }}>{addKor}</WText>
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={onTimeSet} style={[styles.container, { padding: 16, top: normalize(15), flexDirection: 'row' }]}>
+          <AntDesign size={20} name={'clockcircleo'} color={Colors.Main} />
+          <WText m style={{ fontSize: 16, marginLeft: 12 }}>
+            이용시간 설정하기
+          </WText>
+          <WText numberOfLines={1} style={{ color: '#999', marginLeft: 12, flex: 1 }}>
+            {moment(dateStart).format(SOCAR_DATE_FORMAT)} ~ {moment(dateEnd).format(SOCAR_DATE_FORMAT)}
+          </WText>
+        </TouchableOpacity>
+      )}
+
+      <TouchableOpacity onPress={checkLocation} style={styles.locationContainer}>
+        <MaterialIcons size={16} name={'my-location'} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => setCenter(DEFAULT_PLACE)} style={{ ...styles.locationContainer, padding: 8, top: normalize(130) }}>
+        <WText style={{ fontSize: 12 }}>해리</WText>
       </TouchableOpacity>
 
       {!currentZone ? (
@@ -270,5 +289,18 @@ const styles = StyleSheet.create({
         elevation: 3,
       },
     }),
+  },
+  locationContainer: {
+    top: normalize(80),
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#eee',
+    ...globalStyles.shadow,
+    shadowColor: '#111',
+    position: 'absolute',
+    right: 10,
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 100,
   },
 });

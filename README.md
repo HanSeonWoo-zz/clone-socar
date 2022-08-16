@@ -12,10 +12,6 @@ sudo gem install cocoapods
 brew install git-lfs
 git-lfs install
 yarn pod
-
-cd ios
-pod install
-cd ..
 yarn ios
 ```
 
@@ -35,15 +31,10 @@ yarn ios
 
 <br/>
 
-# Library
+# 참고
 
-    "@react-native-firebase/firestore": "^14.8.0",
-    "mobx": "^6.3.8",
-    "mobx-react": "^7.2.1",
-    "moment": "^2.24.0",
-    "react-native-fast-image": "^8.5.11",
-    "react-native-keyboard-aware-scroll-view": "^0.9.5",
-    "react-native-modal": "^13.0.0",
+- 가지러 가기
+- 이용 내역 ( 4번의 이용 내역이 Default로 들어가 있습니다 )
 
 <br/>
 
@@ -52,3 +43,7 @@ yarn ios
 Home화면 디자인 반영
 쏘카 찾기 화면 디자인 구성
 네이버지도 API reverse geocoding
+
+아이폰에서 직접 테스트하는 경우
+설정 - 일반 - VPN 및 기기 관리
+로 들어가서 신뢰할 수 있는 앱 설정
