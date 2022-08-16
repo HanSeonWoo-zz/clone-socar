@@ -48,7 +48,7 @@ command+R 명령어를 통해 앱을 직접 설치
 
 # Demo
 
-[![Watch the video](https://img.youtube.com/vi/QN5QRwieLU0/default.jpg)](https://youtu.be/QN5QRwieLU0)
+[![Watch the video](https://img.youtube.com/vi/QN5QRwieLU0/hqdefault.jpg)](https://youtu.be/QN5QRwieLU0)
 
 <br/>
 
